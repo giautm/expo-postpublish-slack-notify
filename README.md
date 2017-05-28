@@ -9,6 +9,7 @@ useful to non-you people, such as your team or your grandparents.
 1. [Create an Telegram's bot](https://core.telegram.org/bots#6-botfather).
 2. `yarn add expo-postpublish-telegram-notify` in your project.
 3. Add the following to your `exp.json`
+4. Start chat with bot via command `/start`. If not, you will receive an error `400 - Bad Request: chat not found`.
 
 ```javascript
   "hooks": {
