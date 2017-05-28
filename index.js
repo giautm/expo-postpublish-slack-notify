@@ -1,22 +1,12 @@
 module.exports = ({ url, iosManifest, config }) => {
-  const { webhookUrl } = config;
-  const slack = require('slack-notify')(webhookUrl);
+  const { token, chatIds } = config;
+  const TelegramBot = require('node-telegram-bot-api');
+  const telegram = new TelegramBot(token);
 
   return new Promise((resolve, reject) => {
-    slack.send(
-      {
-        icon_url: iosManifest.iconUrl,
-        text: `${iosManifest.name} v${iosManifest.version} published to ${url}`,
-        unfurl_links: 0,
-        username: config.username || 'ExpoBot',
-      },
-      err => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve('Posted notification to Slack!');
-        }
-      }
-    );
+    (chatIds || []).foreach((chatId) => {
+      telegram.sendMessage(chatId, `${iosManifest.name} v${iosManifest.version} published to ${url}`);
+    });
+    resolve();
   });
 };
