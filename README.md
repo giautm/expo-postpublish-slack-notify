@@ -1,23 +1,24 @@
-# expo-postpublish-slack-notify
+# expo-postpublish-telegram-notify
 
-Post a notification on Slack whenever your project is published.
+Post a notification on Telegram whenever your project is published.
 Presumably you already know this is happening so it's probably more
 useful to non-you people, such as your team or your grandparents.
 
 ## Installation
 
-1. [Create an incoming webhook](https://api.slack.com/incoming-webhooks) and keep the window open with the URL.
-2. `yarn add expo-postpublish-slack-notify` in your project.
+1. [Create an Telegram's bot](https://core.telegram.org/bots#6-botfather).
+2. `yarn add expo-postpublish-telegram-notify` in your project.
 3. Add the following to your `exp.json`
 
 ```javascript
   "hooks": {
     "postPublish": [
       {
-        "file": "expo-postpublish-slack-notify",
+        "file": "expo-postpublish-telegram-notify",
         "config": {
-          "webhookUrl": "your webhook url here",
-          "username": "thisIsOptionalAndIsAValidSlackUsername"
+          "botToken": "YOUR BOT TOKEN FROM BOT FATHER",
+          "chatIds": [
+          ]
         }
       }
     ]
