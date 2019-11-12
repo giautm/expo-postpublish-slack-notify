@@ -6,7 +6,8 @@ module.exports = ({ url, iosManifest, config }) => {
   const queryString = releaseChannel === 'default' ? '' :
     '?release-channel='+encodeURIComponent(releaseChannel);
 
-  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${url}${queryString}`;
+  const dataStr = encodeURIComponent(`${url}${queryString}`);
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${dataStr}`;
 
   return Promise.all((chatIds || []).map((chatId) => {
     return fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
@@ -17,7 +18,7 @@ module.exports = ({ url, iosManifest, config }) => {
       body: JSON.stringify({
         chat_id: chatId,
         photo: qrUrl,
-        caption: `${iosManifest.name} v${iosManifest.version} published to ${url}${queryString}`,
+        caption: `${iosManifest.name} v${iosManifest.version} published to ${dataStr}`,
       }),
     }).then((response) => response.json()).then((data) => {
       if (data.ok) {
