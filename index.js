@@ -25,6 +25,7 @@ module.exports = ({ config, iosManifest, url }) => {
     query: {
       data: publishedUrl,
       size: '250x250',
+      t: Date.now(),
     }
   })
 
